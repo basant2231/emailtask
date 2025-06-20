@@ -16,6 +16,15 @@ import 'package:mailer/smtp_server/gmail.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
+import 'package:file_picker/file_picker.dart';
+
 class MailPage extends StatefulWidget {
   const MailPage({super.key});
 
@@ -32,6 +41,7 @@ class _MailPageState extends State<MailPage> {
   List<File> _attachments = [];
   List<String> _attachmentNames = [];
   bool _isSending = false;
+  bool _isPickingAttachments = false; // New state for attachment loading
 
   // SMTP server for gmail
   final gmailSmtp = gmail(
@@ -88,13 +98,21 @@ class _MailPageState extends State<MailPage> {
         SnackBar(content: Text('An error occurred: ${e.toString()}')),
       );
     } finally {
-      setState(() {
-        _isSending = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isSending = false;
+        });
+      }
     }
   }
 
   Future<void> _pickAttachments() async {
+    if (_isPickingAttachments) return;
+    
+    setState(() {
+      _isPickingAttachments = true;
+    });
+
     try {
       final result = await FilePicker.platform.pickFiles(
         allowMultiple: true,
@@ -116,6 +134,12 @@ class _MailPageState extends State<MailPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error picking files: ${e.toString()}')),
       );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isPickingAttachments = false;
+        });
+      }
     }
   }
 
@@ -196,14 +220,23 @@ class _MailPageState extends State<MailPage> {
                     Row(
                       children: [
                         ElevatedButton.icon(
-                          onPressed: _pickAttachments,
-                          icon: Icon(Icons.attach_file),
-                          label: Text("Add Attachments"),
+                          onPressed: _isPickingAttachments ? null : _pickAttachments,
+                          icon: _isPickingAttachments
+                              ? SizedBox(
+                                  width: 16,
+                                  height: 16,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Icon(Icons.attach_file),
+                          label: Text(_isPickingAttachments ? "Loading..." : "Add Attachments"),
                         ),
                         if (_attachments.isNotEmpty) ...[
                           const SizedBox(width: 8),
                           TextButton(
-                            onPressed: _clearAllAttachments,
+                            onPressed: _isPickingAttachments ? null : _clearAllAttachments,
                             child: Text("Clear All"),
                           ),
                         ],
@@ -227,7 +260,7 @@ class _MailPageState extends State<MailPage> {
                               ),
                               trailing: IconButton(
                                 icon: Icon(Icons.close),
-                                onPressed: () => _removeAttachment(entry.key),
+                                onPressed: _isPickingAttachments ? null : () => _removeAttachment(entry.key),
                               ),
                               contentPadding: EdgeInsets.zero,
                               minLeadingWidth: 24,
@@ -244,7 +277,7 @@ class _MailPageState extends State<MailPage> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: _isSending
+                    onPressed: _isSending || _isPickingAttachments
                         ? null
                         : () {
                             if (formKey.currentState!.validate()) {
