@@ -15,4 +15,4 @@ The final piece of the puzzle was connecting the UI to the `MailController`. I l
 Overall, I'm happy with how this architecture turned out. It's secure, self-contained, and thanks to the MVC pattern, the clear separation of concerns makes it easy to understand and build upon in the future.
 
 ### Important Note for Android Builds
-For the app to be able to connect to the internet and send emails on a release build for Android, it's crucial to add the internet permission to the `AndroidManifest.xml` file. I've already taken care of this by adding the  and here is a video https://github.com/user-attachments/assets/86f7bff5-1f48-48e7-92df-1eac260537a5
+For the app to be able to connect to the internet and send emails on a release build for Android, it's crucial to add the internet permission to the `AndroidManifest.xml` file. I've already taken care of this by adding the  and here is a folder that have (video - image - apk) https://drive.google.com/drive/folders/1yo7-6IZG1Fq8LPywekw0N-eYa3c_JUqc
