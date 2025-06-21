@@ -35,4 +35,8 @@ class AppColors {
   // Snackbars
   static const Color successSnackbar = Color(0xFF388E3C); // Green 700
   static const Color errorSnackbar = Color(0xFFD32F2F); // Red 700
+
+
+  static const Color warningSnackbar = Colors.orange;
+  static const Color infoSnackbar = Colors.blue;
 }
