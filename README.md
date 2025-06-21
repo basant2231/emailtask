@@ -13,3 +13,6 @@ Inside the controller, I set up the connection to Gmail's SMTP server using the 
 The final piece of the puzzle was connecting the UI to the `MailController`. I linked all the buttons and text fields to the corresponding methods and variables in the controller. I used GetX's `Obx` widgets to make the UI reactive. This means that when a user adds an attachment, for example, the screen updates automatically without any extra work. It makes for a really smooth user experience.
 
 Overall, I'm happy with how this architecture turned out. It's secure, self-contained, and thanks to the MVC pattern, the clear separation of concerns makes it easy to understand and build upon in the future.
+
+### Important Note for Android Builds
+For the app to be able to connect to the internet and send emails on a release build for Android, it's crucial to add the internet permission to the `AndroidManifest.xml` file. I've already taken care of this by adding the 
