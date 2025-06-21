@@ -1,16 +1,12 @@
-import 'dart:async';
 
-import 'package:emailtask/Features/controllers/mail_controllers.dart';
-import 'package:emailtask/Features/widgets/attachments_section.dart';
-import 'package:emailtask/Features/widgets/email_text_field.dart';
-import 'package:emailtask/Features/widgets/send_button.dart';
+import 'package:emailtask/Features/mail/controllers/mail_controller.dart';
+import 'package:emailtask/Features/mail/views/widgets/attachments_section.dart';
+import 'package:emailtask/Features/mail/views/widgets/email_text_field.dart';
+import 'package:emailtask/Features/mail/views/widgets/send_button.dart';
 import 'package:emailtask/core/app_text_styles.dart';
 import 'package:emailtask/core/colors.dart';
 import 'package:emailtask/core/validators.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server/gmail.dart';
 
 import 'package:get/get.dart';
 

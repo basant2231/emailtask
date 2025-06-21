@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:emailtask/core/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -8,16 +7,7 @@ import 'package:get/get.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server/gmail.dart';
 
-import 'dart:async';
-import 'dart:io';
-import 'package:emailtask/core/colors.dart';
 import 'package:emailtask/core/snackbar_util.dart';
-import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get/get.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server/gmail.dart';
 
 class MailController extends GetxController {
   final TextEditingController recipientController = TextEditingController();
@@ -53,13 +43,11 @@ class MailController extends GetxController {
         ..text = contentController.text;
 
       for (int i = 0; i < _attachments.length; i++) {
-        try {
+       
           message.attachments.add(
             FileAttachment(_attachments[i])..fileName = _attachmentNames[i],
           );
-        } catch (e) {
-          print('Error attaching file ${_attachmentNames[i]}: $e');
-        }
+        
       }
 
       try {

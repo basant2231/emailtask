@@ -1,8 +1,6 @@
 import 'package:emailtask/core/app_text_styles.dart';
 import 'package:emailtask/core/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 
 class EmailTextField extends StatelessWidget {
   final TextEditingController controller;

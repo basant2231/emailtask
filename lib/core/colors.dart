@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
 
 class AppColors {
   // AppBar - Dark Purple
